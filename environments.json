@@ -1,0 +1,46 @@
+{
+  "Global01": {
+    "shortName": "production",
+    "url": "manage.mist.com"
+  },
+  "Global02": {
+    "shortName": "gc1",
+    "url": "manage.gc1.mist.com"
+  },
+  "Global03": {
+    "shortName": "ac2",
+    "url": "manage.ac2.mist.com"
+  },
+  "Global04": {
+    "shortName": "gc2",
+    "url": "manage.gc2.mist.com"
+  },
+  "Emea01": {
+    "shortName": "eu",
+    "url": "manage.eu.mist.com"
+  },
+  "Emea02": {
+    "shortName": "gc3",
+    "url": "manage.gc3.mist.com"
+  },
+  "Emea03": {
+    "shortName": "ac6",
+    "url": "manage.ac6.mist.com"
+  },
+  "Apac01": {
+    "shortName": "ac5",
+    "url": "manage.ac5.mist.com"
+  },
+  "USGov01": {
+    "shortName": "usgov",
+    "url": "manage.us.mist-federal.com"
+  },
+  "Integration": {
+    "shortName": "integration",
+    "url": "integration.mistsys.com"
+  },
+  "Staging": {
+    "shortName": "staging",
+    "url": "manage-staging.mistsys.com"
+  }
+}
