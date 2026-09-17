@@ -15,6 +15,10 @@
     "shortName": "gc2",
     "url": "manage.gc2.mist.com"
   },
+  "Global05": {
+    "shortName": "gc4",
+    "url": "manage.gc4.mist.com"
+  },
   "Emea01": {
     "shortName": "eu",
     "url": "manage.eu.mist.com"
@@ -27,9 +31,21 @@
     "shortName": "ac6",
     "url": "manage.ac6.mist.com"
   },
+  "Emea04": {
+    "shortName": "gc6",
+    "url": "manage.gc6.mist.com"
+  },
   "Apac01": {
     "shortName": "ac5",
     "url": "manage.ac5.mist.com"
+  },
+  "Apac02": {
+    "shortName": "gc5",
+    "url": "manage.gc5.mist.com"
+  },
+  "Apac03": {
+    "shortName": "gc7",
+    "url": "manage.gc7.mist.com"
   },
   "USGov01": {
     "shortName": "usgov",
