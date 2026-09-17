@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mist Cloud Versions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --ink: #1b1b1f;
+    --muted: #5f6068;
+    --outline: #dedee7;
+    --surface: #fbf8ff;
+    --primary: #005ac2;
+    --primary-container: #d8e7ff;
+    --on-primary-container: #001a41;
+    --secondary-container: #dce5f7;
+    --error: #ba1a1a;
+    --shadow: 0 2px 8px rgba(31, 35, 48, 0.08), 0 12px 28px rgba(31, 35, 48, 0.05);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-width: 320px;
+    color: var(--ink);
+    background: var(--surface);
+    font-family: "Manrope", sans-serif;
+    line-height: 1.5;
+  }
+  .app-bar {
+    height: 88px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 clamp(20px, 5vw, 72px);
+    background: rgba(251, 248, 255, 0.92);
+    border-bottom: 1px solid var(--outline);
+  }
+  .brand-mark {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    color: white;
+    background: var(--primary);
+    border-radius: 14px;
+    font-weight: 800;
+    letter-spacing: -0.08em;
+    box-shadow: 0 4px 10px rgba(0, 90, 194, 0.2);
+  }
+  .app-title { margin: 0; font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em; }
+  .app-subtitle { margin: 2px 0 0; color: var(--muted); font-size: 0.75rem; }
+  .material-symbols-rounded {
+    font-size: 21px;
+    line-height: 1;
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  }
+  main { max-width: 1180px; margin: 0 auto; padding: clamp(32px, 5vw, 64px) clamp(20px, 5vw, 72px) 72px; }
+  .hero { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 34px; }
+  h1 { max-width: 650px; margin: 0; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.08; letter-spacing: -0.055em; }
+  .eyebrow { margin: 0 0 10px; color: var(--primary); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+  .hero-copy { margin: 14px 0 0; color: var(--muted); font-size: 0.95rem; }
+  .action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 48px;
+    padding: 0 22px;
+    color: white;
+    background: var(--primary);
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 3px 7px rgba(0, 90, 194, 0.2);
+    font: 700 0.88rem "Manrope", sans-serif;
+    cursor: pointer;
+    transition: box-shadow 160ms ease, transform 160ms ease, background 160ms ease;
+  }
+  .action-button:hover { background: #00499f; box-shadow: 0 6px 14px rgba(0, 90, 194, 0.24); transform: translateY(-1px); }
+  .action-button:disabled { cursor: wait; opacity: 0.65; transform: none; }
+  .status-bar { display: flex; align-items: center; gap: 9px; min-height: 46px; margin-bottom: 22px; color: var(--muted); font-size: 0.8rem; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #2e7d32; }
+  .results-grid { display: block; }
+  .timeline-guide { display: flex; align-items: center; gap: 7px; margin: 0 0 12px 184px; color: var(--muted); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+  .timeline-guide .material-symbols-rounded { color: var(--primary); font-size: 18px; }
+  .timeline { position: relative; padding: 6px 0 20px; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    bottom: 26px;
+    left: 154px;
+    width: 2px;
+    background: var(--primary-container);
+  }
+  .timeline-entry { position: relative; display: grid; grid-template-columns: 126px 1fr; gap: 58px; padding-bottom: 28px; animation: rise 300ms ease both; }
+  .timeline-date { padding-top: 16px; color: var(--muted); font-size: 0.78rem; font-weight: 700; line-height: 1.35; text-align: right; }
+  .timeline-date strong { display: block; color: var(--ink); font-size: 0.88rem; }
+  .timeline-node {
+    position: absolute;
+    top: 16px;
+    left: 146px;
+    z-index: 1;
+    width: 18px;
+    height: 18px;
+    background: var(--surface);
+    border: 5px solid var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px var(--surface);
+  }
+  .version-block {
+    padding: 22px;
+    background: white;
+    border: 1px solid var(--outline);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    animation: rise 300ms ease both;
+  }
+  .version-top { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+  .version-block h2 { margin: 0; color: var(--on-primary-container); font: 500 1.2rem "DM Mono", monospace; letter-spacing: -0.04em; }
+  .version-icon { display: grid; place-items: center; width: 38px; height: 38px; color: var(--primary); background: var(--primary-container); border-radius: 12px; }
+  .build-date { margin: 16px 0 18px; color: var(--muted); font-size: 0.78rem; }
+  .build-date strong { color: var(--ink); font-weight: 700; }
+  .environment-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .environment-list li { padding: 7px 11px; color: #29354a; background: var(--secondary-container); border-radius: 9px; font-size: 0.78rem; font-weight: 600; }
+  .environment-count { margin: 0 0 12px; color: var(--muted); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .error-block { color: var(--error); background: #ffdad6; border-color: #93000a; }
+  .error-block h2, .error-block .environment-count { color: var(--error); }
+  .error-block ul { margin: 0; padding-left: 20px; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 640px) {
+    .app-bar { height: 72px; }
+    .hero { display: block; }
+    .hero .action-button { width: 100%; justify-content: center; margin-top: 24px; }
+    main { padding-top: 36px; }
+    .timeline-guide { margin-left: 27px; }
+    .timeline { padding-left: 27px; }
+    .timeline::before { left: 7px; top: 20px; bottom: 26px; }
+    .timeline-entry { display: block; padding-bottom: 22px; }
+    .timeline-date { padding: 0 0 10px; text-align: left; }
+    .timeline-date strong { display: inline; margin-right: 6px; }
+    .timeline-node { left: 0; top: 3px; }
+  }
+</style>
+</head>
+<body>
+  <header class="app-bar">
+    <div class="brand-mark" aria-hidden="true">m.</div>
+    <div>
+      <p class="app-title">Mist Cloud</p>
+      <p class="app-subtitle">Environment observatory</p>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Release intelligence</p>
+        <h1>Cloud environment versions</h1>
+        <p class="hero-copy">A live view of the software running across Mist cloud environments.</p>
+      </div>
+    </section>
+    <div class="status-bar" aria-live="polite">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span id="status">Connecting to environments...</span>
+    </div>
+    <div id="results" class="results-grid"></div>
+  </main>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const resultsEl = document.getElementById('results');
+
+    function render(sortedVersions, errors) {
+      resultsEl.innerHTML = '';
+
+      const guide = document.createElement('div');
+      guide.className = 'timeline-guide';
+      guide.setAttribute('aria-label', 'Timeline order: latest content to oldest content');
+      guide.innerHTML = `
+        <span>Latest content</span>
+        <span class="material-symbols-rounded" aria-hidden="true">south</span>
+        <span>Oldest content</span>
+      `;
+      resultsEl.appendChild(guide);
+
+      const timeline = document.createElement('div');
+      timeline.className = 'timeline';
+
+      [...sortedVersions]
+        .sort(([, first], [, second]) => second.time - first.time)
+        .forEach(([version, data]) => {
+        const entry = document.createElement('div');
+        entry.className = 'timeline-entry';
+        const date = new Date(data.time);
+        entry.innerHTML = `
+          <div class="timeline-date">
+            <strong>${date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</strong>
+            ${date.getFullYear()}
+          </div>
+          <span class="timeline-node" aria-hidden="true"></span>
+        `;
+        const block = document.createElement('section');
+        block.className = 'version-block';
+        block.innerHTML = `
+          <div class="version-top">
+            <h2>Content Build Date: ${new Date(data.time).toDateString()}</h2>
+            <span class="version-icon material-symbols-rounded" aria-hidden="true">deployed_code</span>
+          </div>
+          <p class="build-date">Version: <strong>${version}</strong></p>
+          <p class="environment-count">${data.environments.length} environment${data.environments.length === 1 ? '' : 's'}</p>
+          <ul class="environment-list">${data.environments.map((e) => `<li>${e}</li>`).join('')}</ul>
+        `;
+        entry.appendChild(block);
+        timeline.appendChild(entry);
+      });
+
+      resultsEl.appendChild(timeline);
+
+      if (errors.length) {
+        const block = document.createElement('div');
+        block.className = 'version-block error-block';
+        block.innerHTML = `
+          <h2>Errors</h2>
+          <ul>${errors.map((e) => `<li>${e}</li>`).join('')}</ul>
+        `;
+        resultsEl.appendChild(block);
+      }
+    }
+
+    async function fetchEnvironmentData() {
+      statusEl.textContent = 'Fetching environment versions...';
+      resultsEl.innerHTML = '';
+
+      try {
+        const response = await fetch('/api/versions');
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        const { versions, errors } = await response.json();
+        render(versions, errors);
+        statusEl.textContent = `Last updated: ${new Date().toLocaleString()}`;
+      } catch (error) {
+        statusEl.textContent = `Failed to fetch versions: ${error.message}`;
+      }
+    }
+
+    fetchEnvironmentData();
+  </script>
+</body>
+</html>
