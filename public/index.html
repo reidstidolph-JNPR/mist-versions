@@ -121,9 +121,11 @@
   .version-top { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
   .version-block h2 { margin: 0; color: var(--on-primary-container); font: 500 1.2rem "DM Mono", monospace; letter-spacing: -0.04em; }
   .version-icon { display: grid; place-items: center; width: 38px; height: 38px; color: var(--primary); background: var(--primary-container); border-radius: 12px; }
-  .build-date { margin: 16px 0 18px; color: var(--muted); font-size: 0.78rem; }
+  .build-date { margin: 0 0 18px; color: var(--muted); font-size: 0.78rem; }
   .build-date strong { color: var(--ink); font-weight: 700; }
-  .environment-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .environment-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .version-details { display: grid; grid-template-columns: minmax(116px, 0.65fr) minmax(0, 1.35fr); gap: 22px; margin-top: 18px; }
+  .version-meta { min-width: 0; }
   .environment-list li { padding: 7px 11px; color: #29354a; background: var(--secondary-container); border-radius: 9px; font-size: 0.78rem; font-weight: 600; }
   .environment-count { margin: 0 0 12px; color: var(--muted); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
   .error-block { color: var(--error); background: #ffdad6; border-color: #93000a; }
@@ -142,6 +144,8 @@
     .timeline-date { padding: 0 0 10px; text-align: left; }
     .timeline-date strong { display: inline; margin-right: 6px; }
     .timeline-node { left: 0; top: 3px; }
+    .version-details { display: block; }
+    .version-meta { margin-top: 18px; }
   }
 </style>
 </head>
@@ -204,13 +208,19 @@
         const block = document.createElement('section');
         block.className = 'version-block';
         block.innerHTML = `
-          <div class="version-top">
-            <h2>Content Build Date: ${new Date(data.time).toDateString()}</h2>
-            <span class="version-icon material-symbols-rounded" aria-hidden="true">deployed_code</span>
+          <div class="version-details">
+            <div class="environment-meta">
+              <p class="environment-count">${data.environments.length} environment${data.environments.length === 1 ? '' : 's'}</p>
+              <ul class="environment-list">${data.environments.map((e) => `<li>${e}</li>`).join('')}</ul>
+            </div>
+            <div class="version-meta">
+              <div class="version-top">
+                <h2>Content Build Date: ${new Date(data.time).toDateString()}</h2>
+                <span class="version-icon material-symbols-rounded" aria-hidden="true">deployed_code</span>
+              </div>
+              <p class="build-date">Version: <strong>${version}</strong></p>
+            </div>
           </div>
-          <p class="build-date">Version: <strong>${version}</strong></p>
-          <p class="environment-count">${data.environments.length} environment${data.environments.length === 1 ? '' : 's'}</p>
-          <ul class="environment-list">${data.environments.map((e) => `<li>${e}</li>`).join('')}</ul>
         `;
         entry.appendChild(block);
         timeline.appendChild(entry);
