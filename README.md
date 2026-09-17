@@ -4,15 +4,6 @@ Web app that fetches and displays versions of various Mist cloud environments, g
 
 Because the `manage.*.mist.com` APIs don't allow cross-origin browser requests (CORS), a small Node/Express backend proxies the requests server-side and serves the frontend.
 
-## Usage
-
-```
-npm install
-npm start
-```
-
-Then visit http://localhost:3000. Click **Refresh** to re-fetch the latest data.
-
 ## Run in a container
 
 ```
